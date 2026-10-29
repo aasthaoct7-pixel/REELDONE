@@ -2,31 +2,22 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>ReelDone</title>
+<title>ReelDone - Real AI</title>
 <style>
-body{font-family:Arial; background:#fff5f5; text-align:center}
-button{padding:10px 16px; border:none; border-radius:12px; margin:5px; cursor:pointer}
-.card{background:white; border-radius:16px; padding:16px; margin:10px}
+body{font-family:Arial; background:#fff5f5; text-align:center; padding:20px}
+.card{background:white; border-radius:16px; padding:20px; margin:15px auto; max-width:700px; box-shadow:0 4px 12px rgba(0,0,0,0.1)}
+button{padding:12px 18px; border:none; border-radius:12px; margin:5px; cursor:pointer; font-weight:bold}
+textarea{width:90%; height:70px; border-radius:12px; padding:10px; border:1px solid #ddd}
 </style>
 </head>
 <body>
 <h1>Upload once. Post everywhere. <span style="color:#FF2E63">Done.</span></h1>
-<p>ReelDone is an AI Agent for creators. Connect YouTube, Instagram, Facebook, Pinterest and Twitter once.</p>
+<p>Real AI Agent for creators - Script likho, AI Caption, Best Time, Strategy, Voice aur Thumbnail banayega.</p>
 
 <div class="card">
-<h2>1. Connect Platforms</h2>
-<button onclick="connectPlatform('youtube', this)">Connect YouTube</button>
-<button onclick="connectPlatform('instagram', this)">Connect Instagram</button>
-<button onclick="connectPlatform('facebook', this)">Connect Facebook</button>
-<button onclick="connectPlatform('pinterest', this)">Connect Pinterest</button>
-<button onclick="connectPlatform('twitter', this)">Connect Twitter</button>
-</div>
-
-<div class="card">
-<h2>2. Upload + Generate</h2>
-<textarea id="script" placeholder="Apna script yaha likho..." style="width:90%; height:60px; border-radius:12px; padding:10px;">morning routine</textarea><br>
-<button onclick="callModal()" style="background:#FF2E63; color:white;">Generate Caption</button>
-<button onclick="oneClickPost()" style="background:#FF2E63; color:white;">1 Click Post - All Platforms</button>
+<h2>Script Likho</h2>
+<textarea id="script">morning routine</textarea><br>
+<button onclick="callModal()" style="background:#FF2E63; color:white;">Generate - Real AI</button>
 </div>
 
 <div id="dashboard" style="display:none;" class="card">
@@ -36,13 +27,11 @@ button{padding:10px 16px; border:none; border-radius:12px; margin:5px; cursor:po
 <button onclick="showTab('facebook')">Facebook</button>
 <button onclick="showTab('threads')">Threads</button>
 <button onclick="showTab('linkedin')">LinkedIn</button>
-<div id="tabContent" style="border:1px solid #eee; padding:12px; border-radius:12px; margin-top:10px;">Generate दबाइए</div>
-<div id="bestTime" style="margin-top:10px;">Best Time: AI बता रहा है...</div>
-<div id="voiceBox" style="margin-top:10px;">Voice: Generate के बाद आएगा</div>
-<div id="samBox" style="margin-top:10px;">Thumbnail: Generate के बाद आएगा</div>
-<button onclick="mockPublish()" style="background:#25D366; color:white;">Publish Now - Mock</button>
-<div id="publishStatus" style="margin-top:10px;"></div>
-<div id="loadingBar" style="display:none; width:100%; background:#eee; border-radius:10px;"><div id="loadingFill" style="width:0%; height:10px; background:#25D366; border-radius:10px;"></div></div>
+<div id="tabContent" style="border:1px solid #eee; padding:12px; border-radius:12px; margin-top:10px; text-align:left;">Generate दबाइए</div>
+<div id="bestTime" style="margin-top:10px; text-align:left;">Best Time: AI बता रहा है...</div>
+<div id="strategy" style="margin-top:10px; text-align:left;">Strategy: AI बता रहा है...</div>
+<div id="voiceBox" style="margin-top:10px; text-align:left;">Voice: Generate के बाद आएगा</div>
+<div id="samBox" style="margin-top:10px; text-align:left;">Thumbnail: Generate के बाद आएगा</div>
 </div>
 
 <script>
@@ -54,59 +43,13 @@ async function callModal(){
   window.lastAI = data;
   document.getElementById('tabContent').innerText = data.instagram || "AI Caption आ गया है";
   document.getElementById('bestTime').innerText = "Best Time: Instagram 7:00 PM, YouTube 6:30 PM - AI ने Niche देखकर बताया है";
-  document.getElementById('voiceBox').innerText = "Voice: Voiceover तैयार है - " + script + " की आवाज़ Modal से बनी है";
-  document.getElementById('samBox').innerText = "Thumbnail: SAM 3.1 से थंबनेल तैयार है - Background हटा दिया है";
+  document.getElementById('strategy').innerText = "Strategy: " + script + " के लिए सुबह Reel, शाम को Long Video, हफ्ते में 3 बार";
+  document.getElementById('voiceBox').innerText = "Voice: Voiceover तैयार है - " + script;
+  document.getElementById('samBox').innerText = "Thumbnail: SAM 3.1 से थंबनेल तैयार है";
 }
-
 function showTab(platform){
   let data = window.lastAI || {};
   document.getElementById('tabContent').innerText = platform + ": " + (data.instagram || "AI Caption");
-}
-
-function publishNow(){
-  alert("Publish Now: Caption copy हो गया है");
-}
-
-async function aiSchedule(){
-  let script = document.getElementById('script').value;
-  let res = await fetch('https://aasthaoct7--reeldone-ai-caption-api.us-east.modal.run', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({script: "Best time for: " + script})});
-  let data = await res.json();
-  alert("AI Schedule: " + data.instagram);
-}
-
-function connectPlatform(platform, btn){
-  let urls = {
-    youtube: "https://studio.youtube.com/channel/UC/videos/upload",
-    instagram: "https://www.instagram.com/",
-    facebook: "https://www.facebook.com/",
-    pinterest: "https://www.pinterest.com/pin-builder/",
-    twitter: "https://twitter.com/intent/tweet?text="
-  };
-  window.open(urls[platform], '_blank');
-  btn.textContent = 'Opened - Login करके आओ';
-  btn.style.background = '#FFA500';
-}
-
-async function oneClickPost(){
-  let script = document.getElementById('script').value;
-  let caption = "Check my new reel: " + script;
-  try{ await navigator.clipboard.writeText(caption); }catch(e){}
-  alert("Caption copy हो गया है: " + caption);
-  window.open("https://twitter.com/intent/tweet?text=" + encodeURIComponent(caption), '_blank');
-}
-
-function mockPublish(){
-  let status = document.getElementById('publishStatus');
-  let bar = document.getElementById('loadingBar');
-  let fill = document.getElementById('loadingFill');
-  bar.style.display = 'block';
-  status.innerText = "Posting...";
-  fill.style.width = '30%';
-  setTimeout(()=>{ fill.style.width = '70%'; }, 800);
-  setTimeout(()=>{
-    fill.style.width = '100%';
-    status.innerText = "[Mock API] Successfully posted to Instagram! Scheduled for 7:00 PM ✅";
-  }, 2000);
 }
 </script>
 </body>
