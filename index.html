@@ -42,6 +42,7 @@ body{background:#0a0a0f;color:#fff}
 <div class="card">𝕏<b>Twitter / X</b><span>Videos + Posts</span><button onclick="connectPlatform('twitter', this)">Connect</button></div>
 </div></div>
 <div class="sec"><h2>2. Upload + Schedule</h2><div class="box"><b>Drop your reel here</b><p>MP4 • Up to 90 sec for Reels</p><br><button class="btn" onclick="callModal()"><textarea id="script" placeholder="Apna script yaha likho..." style="width:100%; height:60px; border-radius:12px; padding:10px; margin:10px 0;">morning routine</textarea><button onclick="callModal()" style="background:#FF2E63; color:white; padding:10px 16px; border:none; border-radius:12px;">Generate Caption</button><button onclick="publishNow()" style="background:#25D366; color:white; padding:10px 16px; border:none; border-radius:12px; margin:5px;">Publish Now</button>
+  <button onclick="oneClickPost()" style="background:#FF2E63; color:white; padding:12px 20px; border:none; border-radius:12px;">1 Click Post - All Platforms</button>
 <button onclick="aiSchedule()" style="background:#7C3AED; color:white; padding:10px 16px; border:none; border-radius:12px; margin:5px;">AI Schedule</button></button></div></div>
 <div class="sec"><h2>3. What's Viral Today - With Proof</h2><div class="box"><b>Morning Routine - Instagram Reel</b><p>2.4M views • 184K likes • Link: instagram.com/reel/viral1 • Why viral: Hook in 1 sec</p></div><div class="box"><b>AI Tools - YouTube Short</b><p>1.8M views • 92K likes • Link: youtube.com/shorts/viral2 • Why viral: Faceless + Voice</p></div></div>
 <div class="sec"><h2>4. Trending Chat + Strategy + AI Editor + Auto DM</h2><div class="box"><b>Trending Chat:</b> Ask "What is trending today?" - Agent answers with proof from all 5 platforms.<br><br><b>Strategy:</b> 7-Day Plan for new creators - Day 1 Morning reel, Day 2 Faceless, Day 3 Story, Day 4 Long video.<br><br><b>AI Editor:</b> Upload raw clips + script, AI cuts, subtitles, music sync.<br><br><b>Faceless Mode:</b> Only audio + script, AI creates full video.<br><br><b>Auto DM + Comment:</b> AI replies in your style.<br><br><b>AI Video + AI Voice:</b> Create video and voice from script, no camera needed.</div></div>
@@ -74,5 +75,18 @@ function connectPlatform(platform, btn){
   localStorage.setItem(platform, 'connected');
   btn.textContent = '✓ Connected';
   btn.style.background = '#25D366';
+  async function oneClickPost(){
+  let script = document.getElementById('script').value;
+  let caption = "Check my new reel: " + script;
+  navigator.clipboard.writeText(caption);
+  window.open("https://twitter.com/intent/tweet?text=" + encodeURIComponent(caption), '_blank');
+  window.open("https://www.facebook.com/sharer/sharer.php?u=https://reeldone.vercel.app", '_blank');
+  window.open("https://pinterest.com/pin/create/button/?description=" + encodeURIComponent(caption), '_blank');
+  if(navigator.share){
+    await navigator.share({title: 'ReelDone', text: caption});
+  } else {
+    alert("Caption copy ho gaya hai, 3 tab khul gaye hai - har tab me Post dabado, ho gaya 1 Click Post");
+  }
+}
 }
 </script>
