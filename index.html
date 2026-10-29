@@ -41,12 +41,27 @@ body{background:#0a0a0f;color:#fff}
 <div class="card">📌<b>Pinterest</b><span>Idea Pins</span><button onclick="this.textContent='✓ Connected'">Connect</button></div>
 <div class="card">𝕏<b>Twitter / X</b><span>Videos + Posts</span><button onclick="this.textContent='✓ Connected'">Connect</button></div>
 </div></div>
-<div class="sec"><h2>2. Upload + Schedule</h2><div class="box"><b>Drop your reel here</b><p>MP4 • Up to 90 sec for Reels</p><br><button class="btn" onclick="callModal()"><textarea id="script" placeholder="Apna script yaha likho..." style="width:100%; height:60px; border-radius:12px; padding:10px; margin:10px 0;">morning routine</textarea>Schedule Reel</button></div></div>
+<div class="sec"><h2>2. Upload + Schedule</h2><div class="box"><b>Drop your reel here</b><p>MP4 • Up to 90 sec for Reels</p><br><button class="btn" onclick="callModal()"><textarea id="script" placeholder="Apna script yaha likho..." style="width:100%; height:60px; border-radius:12px; padding:10px; margin:10px 0;">morning routine</textarea>Generate Caption</button></div></div>
+  <button onclick="publishNow()" style="background:#25D366; color:white; padding:10px 16px; border:none; border-radius:12px; margin:5px;">Publish Now</button>
+<button onclick="aiSchedule()" style="background:#7C3AED; color:white; padding:10px 16px; border:none; border-radius:12px; margin:5px;">AI Schedule</button>
 <div class="sec"><h2>3. What's Viral Today - With Proof</h2><div class="box"><b>Morning Routine - Instagram Reel</b><p>2.4M views • 184K likes • Link: instagram.com/reel/viral1 • Why viral: Hook in 1 sec</p></div><div class="box"><b>AI Tools - YouTube Short</b><p>1.8M views • 92K likes • Link: youtube.com/shorts/viral2 • Why viral: Faceless + Voice</p></div></div>
 <div class="sec"><h2>4. Trending Chat + Strategy + AI Editor + Auto DM</h2><div class="box"><b>Trending Chat:</b> Ask "What is trending today?" - Agent answers with proof from all 5 platforms.<br><br><b>Strategy:</b> 7-Day Plan for new creators - Day 1 Morning reel, Day 2 Faceless, Day 3 Story, Day 4 Long video.<br><br><b>AI Editor:</b> Upload raw clips + script, AI cuts, subtitles, music sync.<br><br><b>Faceless Mode:</b> Only audio + script, AI creates full video.<br><br><b>Auto DM + Comment:</b> AI replies in your style.<br><br><b>AI Video + AI Voice:</b> Create video and voice from script, no camera needed.</div></div>
 <p style="text-align:center;color:#666;font-size:12px;padding:20px">ReelDone • Built for Meta AI Developer Hackathon • Theme 1 • GitHub: github.com/aasthaoct7-pixel/REELDONE</p>
 <script>
-async function callModal(){
+async function callModalfunction publishNow(){
+  alert("Publish Now: Caption copy ho gaya hai, ab Instagram / YouTube pe paste karke Publish kar do");
+}
+
+async function aiSchedule(){
+  let script = document.getElementById('script').value;
+  let res = await fetch('https://aasthaoct7--reeldone-ai-caption-api.us-east.modal.run', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({script: "Best time to post this for Instagram, YouTube, Pinterest based on niche: " + script})
+  });
+  let data = await res.json();
+  alert("AI Schedule: " + data.instagram);
+}(){
   let script = document.getElementById('script').value;
   let res = await fetch('https://aasthaoct7--reeldone-ai-caption-api.us-east.modal.run', {
     method: 'POST',
