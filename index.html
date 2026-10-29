@@ -47,8 +47,7 @@ body{background:#0a0a0f;color:#fff}
 <div class="sec"><h2>4. Trending Chat + Strategy + AI Editor + Auto DM</h2><div class="box"><b>Trending Chat:</b> Ask "What is trending today?" - Agent answers with proof from all 5 platforms.<br><br><b>Strategy:</b> 7-Day Plan for new creators - Day 1 Morning reel, Day 2 Faceless, Day 3 Story, Day 4 Long video.<br><br><b>AI Editor:</b> Upload raw clips + script, AI cuts, subtitles, music sync.<br><br><b>Faceless Mode:</b> Only audio + script, AI creates full video.<br><br><b>Auto DM + Comment:</b> AI replies in your style.<br><br><b>AI Video + AI Voice:</b> Create video and voice from script, no camera needed.</div></div>
 <p style="text-align:center;color:#666;font-size:12px;padding:20px">ReelDone • Built for Meta AI Developer Hackathon • Theme 1 • GitHub: github.com/aasthaoct7-pixel/REELDONE</p>
 <script>
-async function callModal(){
-  function connectPlatform(platform, btn){
+async function callModalfunction connectPlatform(platform, btn){
   let urls = {
   youtube: "https://studio.youtube.com/channel/UC/videos/upload",
   instagram: "https://www.instagram.com/",
@@ -67,7 +66,7 @@ window.onload = function(){
       // Button ko Connected dikhayenge
     }
   });
-}
+}(){
   let script = document.getElementById('script').value;
   let res = await fetch('https://aasthaoct7--reeldone-ai-caption-api.us-east.modal.run', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({script: script})});
   let data = await res.json();
