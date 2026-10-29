@@ -35,11 +35,11 @@ body{background:#0a0a0f;color:#fff}
 </div>
 <div class="sec"><h2>1. Connect Platforms</h2><p>Connect once. No need to login again and again.</p>
 <div class="grid">
-<div class="card">▶️<b>YouTube</b><span>Shorts + Long Videos</span><button onclick="this.textContent='✓ Connected'">Connect</button></div>
-<div class="card">📸<b>Instagram</b><span>Reels + Stories</span><button onclick="this.textContent='✓ Connected'">Connect</button></div>
-<div class="card">👍<b>Facebook</b><span>Reels + Stories</span><button onclick="this.textContent='✓ Connected'">Connect</button></div>
-<div class="card">📌<b>Pinterest</b><span>Idea Pins</span><button onclick="this.textContent='✓ Connected'">Connect</button></div>
-<div class="card">𝕏<b>Twitter / X</b><span>Videos + Posts</span><button onclick="this.textContent='✓ Connected'">Connect</button></div>
+<div class="card">▶️<b>YouTube</b><span>Shorts + Long Videos</span><button onclick="connectPlatform('youtube', this)">Connect</button></div>
+<div class="card">📸<b>Instagram</b><span>Reels + Stories</span><button onclick="connectPlatform('instagram', this)">Connect</button></div>
+<div class="card">👍<b>Facebook</b><span>Reels + Stories</span><button onclick="connectPlatform('facebook', this)">Connect</button></div>
+<div class="card">📌<b>Pinterest</b><span>Idea Pins</span><button onclick="connectPlatform('pinterest', this)">Connect</button></div>
+<div class="card">𝕏<b>Twitter / X</b><span>Videos + Posts</span><button onclick="connectPlatform('twitter', this)">Connect</button></div>
 </div></div>
 <div class="sec"><h2>2. Upload + Schedule</h2><div class="box"><b>Drop your reel here</b><p>MP4 • Up to 90 sec for Reels</p><br><button class="btn" onclick="callModal()"><textarea id="script" placeholder="Apna script yaha likho..." style="width:100%; height:60px; border-radius:12px; padding:10px; margin:10px 0;">morning routine</textarea><button onclick="callModal()" style="background:#FF2E63; color:white; padding:10px 16px; border:none; border-radius:12px;">Generate Caption</button><button onclick="publishNow()" style="background:#25D366; color:white; padding:10px 16px; border:none; border-radius:12px; margin:5px;">Publish Now</button>
 <button onclick="aiSchedule()" style="background:#7C3AED; color:white; padding:10px 16px; border:none; border-radius:12px; margin:5px;">AI Schedule</button></button></div></div>
@@ -48,6 +48,26 @@ body{background:#0a0a0f;color:#fff}
 <p style="text-align:center;color:#666;font-size:12px;padding:20px">ReelDone • Built for Meta AI Developer Hackathon • Theme 1 • GitHub: github.com/aasthaoct7-pixel/REELDONE</p>
 <script>
 async function callModal(){
+  function connectPlatform(platform, btn){
+  let urls = {
+  youtube: "https://studio.youtube.com/channel/UC/videos/upload",
+  instagram: "https://www.instagram.com/",
+  facebook: "https://www.facebook.com/",
+  pinterest: "https://www.pinterest.com/pin-builder/",
+  twitter: "https://twitter.com/intent/tweet?text="
+};
+  window.open(urls[platform], '_blank');
+  localStorage.setItem(platform, 'connected');
+  btn.textContent = '✓ Connected';
+  btn.style.background = '#25D366';
+}
+window.onload = function(){
+  ['youtube','instagram','facebook','pinterest'].forEach(p => {
+    if(localStorage.getItem(p) === 'connected'){
+      // Button ko Connected dikhayenge
+    }
+  });
+}
   let script = document.getElementById('script').value;
   let res = await fetch('https://aasthaoct7--reeldone-ai-caption-api.us-east.modal.run', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({script: script})});
   let data = await res.json();
