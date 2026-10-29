@@ -47,29 +47,19 @@ body{background:#0a0a0f;color:#fff}
 <div class="sec"><h2>4. Trending Chat + Strategy + AI Editor + Auto DM</h2><div class="box"><b>Trending Chat:</b> Ask "What is trending today?" - Agent answers with proof from all 5 platforms.<br><br><b>Strategy:</b> 7-Day Plan for new creators - Day 1 Morning reel, Day 2 Faceless, Day 3 Story, Day 4 Long video.<br><br><b>AI Editor:</b> Upload raw clips + script, AI cuts, subtitles, music sync.<br><br><b>Faceless Mode:</b> Only audio + script, AI creates full video.<br><br><b>Auto DM + Comment:</b> AI replies in your style.<br><br><b>AI Video + AI Voice:</b> Create video and voice from script, no camera needed.</div></div>
 <p style="text-align:center;color:#666;font-size:12px;padding:20px">ReelDone • Built for Meta AI Developer Hackathon • Theme 1 • GitHub: github.com/aasthaoct7-pixel/REELDONE</p>
 <script>
-async function callModalfunction publishNow(){
-  alert("Publish Now: Caption copy ho gaya hai, ab Instagram / YouTube pe paste karke Publish kar do");
-}
-
-async function aiSchedule(){
+async function callModal(){
   let script = document.getElementById('script').value;
-  let res = await fetch('https://aasthaoct7--reeldone-ai-caption-api.us-east.modal.run', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({script: "Best time to post this for Instagram, YouTube, Pinterest based on niche: " + script})
-  });
-  let data = await res.json();
-  alert("AI Schedule: " + data.instagram);
-}(){
-  let script = document.getElementById('script').value;
-  let res = await fetch('https://aasthaoct7--reeldone-ai-caption-api.us-east.modal.run', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({script: script})
-  });
+  let res = await fetch('https://aasthaoct7--reeldone-ai-caption-api.us-east.modal.run', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({script: script})});
   let data = await res.json();
   alert("Modal se aaya: " + data.instagram);
 }
+function publishNow(){
+  alert("Publish Now: Caption copy ho gaya hai, ab Instagram / YouTube pe paste karke Publish kar do");
+}
+async function aiSchedule(){
+  let script = document.getElementById('script').value;
+  let res = await fetch('https://aasthaoct7--reeldone-ai-caption-api.us-east.modal.run', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({script: "Best time to post for Instagram, YouTube, Pinterest for: " + script})});
+  let data = await res.json();
+  alert("AI Schedule: " + data.instagram);
+}
 </script>
-</body>
-</html>
