@@ -1,0 +1,8 @@
+# FastAPI provides the backend API framework.
+fastapi
+
+# Uvicorn runs the FastAPI application.
+uvicorn[standard]
+
+# Loads environment variables from .env.
+python-dotenv
