@@ -6,3 +6,6 @@ uvicorn[standard]
 
 # Loads environment variables from .env.
 python-dotenv
+
+# HTTPX sends requests to the Muse Spark endpoint on Modal.
+httpx
