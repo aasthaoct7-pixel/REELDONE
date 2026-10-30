@@ -45,3 +45,9 @@ async def health_check():
         "application": "ReelDone",
         "message": "Backend is running successfully"
     }
+# PURPOSE:
+# Plug the /generate route (6-platform SEO) into the main application.
+from app.seo_routes import router as seo_router
+
+app.include_router(seo_router)
+
