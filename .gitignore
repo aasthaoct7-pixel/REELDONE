@@ -1,0 +1,8 @@
+# Never upload secret keys to GitHub
+.env
+*.env
+
+# Python temporary files
+_pycache_/
+*.pyc
+venv/
