@@ -31,7 +31,9 @@ async def ask_muse(system_prompt: str, user_prompt: str) -> str:
     # Modal expects the token id and secret joined by a dot.
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {TOKEN_ID}.{TOKEN_SECRET}",
+"Authorization": f"Bearer {TOKEN_ID}.{TOKEN_SECRET}",
+        "Modal-Key": TOKEN_ID,
+"Modal-Secret": TOKEN_SECRET,
     }
 
     # The chat request: model name, instructions, and the user's task.
@@ -49,6 +51,10 @@ async def ask_muse(system_prompt: str, user_prompt: str) -> str:
     async with httpx.AsyncClient(timeout=120) as client:
         response = await client.post(MUSE_ENDPOINT_URL, headers=headers, json=payload)
         response.raise_for_status()
+
+    # Return only the text of the model's first answer.
+    return response.json()["choices"][0]["message"]["content"]
+
 
     # Return only the text of the model's first answer.
     return response.json()["choices"][0]["message"]["content"]
