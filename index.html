@@ -1,56 +1,1119 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<title>ReelDone - Real AI</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ReelDone - Create Once. Publish Everywhere.</title>
+
 <style>
-body{font-family:Arial; background:#fff5f5; text-align:center; padding:20px}
-.card{background:white; border-radius:16px; padding:20px; margin:15px auto; max-width:700px; box-shadow:0 4px 12px rgba(0,0,0,0.1)}
-button{padding:12px 18px; border:none; border-radius:12px; margin:5px; cursor:pointer; font-weight:bold}
-textarea{width:90%; height:70px; border-radius:12px; padding:10px; border:1px solid #ddd}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0
+}
+
+:root{
+    --bg:#070711;
+    --card:#11111d;
+    --card2:#171726;
+    --border:#29293d;
+    --text:#f7f7fb;
+    --muted:#9b9bad;
+    --pink:#ff2e63;
+    --purple:#8b5cf6;
+    --blue:#4f8cff;
+    --green:#21c77a;
+}
+
+body{
+    font-family:Inter,Segoe UI,Arial,sans-serif;
+    background:
+        radial-gradient(circle at 20% 0%,rgba(139,92,246,.17),transparent 35%),
+        radial-gradient(circle at 90% 10%,rgba(255,46,99,.13),transparent 30%),
+        var(--bg);
+    color:var(--text);
+    min-height:100vh;
+}
+
+nav{
+    height:72px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    max-width:1180px;
+    margin:auto;
+    padding:0 22px;
+    border-bottom:1px solid rgba(255,255,255,.05);
+}
+
+.logo{
+    font-size:25px;
+    font-weight:900;
+}
+
+.logo span{color:var(--pink)}
+
+.nav-pill{
+    color:#c8c8d5;
+    border:1px solid var(--border);
+    padding:9px 14px;
+    border-radius:999px;
+    font-size:13px;
+}
+
+.hero{
+    max-width:900px;
+    margin:70px auto 35px;
+    text-align:center;
+    padding:0 20px;
+}
+
+.badge{
+    display:inline-block;
+    background:rgba(139,92,246,.13);
+    border:1px solid rgba(139,92,246,.35);
+    color:#c7b5ff;
+    padding:7px 13px;
+    border-radius:999px;
+    font-size:13px;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:clamp(40px,7vw,72px);
+    line-height:1.02;
+    letter-spacing:-3px;
+}
+
+.gradient{
+    background:linear-gradient(90deg,#ff3c75,#a875ff,#58a6ff);
+    -webkit-background-clip:text;
+    color:transparent;
+}
+
+.hero p{
+    max-width:680px;
+    margin:20px auto;
+    color:var(--muted);
+    line-height:1.7;
+    font-size:17px;
+}
+
+.container{
+    max-width:1180px;
+    margin:auto;
+    padding:20px;
+}
+
+.section-title{
+    margin:45px 0 18px;
+}
+
+.section-title h2{
+    font-size:27px;
+    margin-bottom:7px;
+}
+
+.section-title p{
+    color:var(--muted);
+}
+
+.card{
+    background:linear-gradient(145deg,rgba(24,24,40,.96),rgba(13,13,24,.96));
+    border:1px solid var(--border);
+    border-radius:24px;
+    padding:24px;
+    box-shadow:0 20px 55px rgba(0,0,0,.2);
+}
+
+.create-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+}
+
+label{
+    display:block;
+    font-weight:700;
+    margin-bottom:8px;
+}
+
+textarea{
+    width:100%;
+    height:170px;
+    resize:vertical;
+    background:#0b0b14;
+    color:white;
+    border:1px solid var(--border);
+    border-radius:15px;
+    padding:15px;
+    outline:none;
+    font-size:15px;
+}
+
+textarea:focus{
+    border-color:var(--purple);
+}
+
+.upload{
+    min-height:170px;
+    border:1.5px dashed #44445e;
+    border-radius:17px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    background:#0b0b14;
+    cursor:pointer;
+    transition:.2s;
+    text-align:center;
+    padding:15px;
+}
+
+.upload:hover{
+    border-color:var(--purple);
+    background:#10101a;
+}
+
+.upload-icon{
+    font-size:34px;
+    margin-bottom:10px;
+}
+
+.upload small{
+    color:var(--muted);
+    margin-top:7px;
+}
+
+input[type=file]{
+    display:none;
+}
+
+.file-name{
+    color:#bca9ff;
+    font-size:13px;
+    margin-top:10px;
+}
+
+.actions{
+    margin-top:20px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+button{
+    border:0;
+    cursor:pointer;
+    font-family:inherit;
+    font-weight:800;
+}
+
+.primary{
+    color:white;
+    background:linear-gradient(90deg,var(--pink),var(--purple));
+    padding:14px 21px;
+    border-radius:13px;
+    box-shadow:0 8px 30px rgba(255,46,99,.18);
+}
+
+.primary:hover{filter:brightness(1.08)}
+
+.secondary{
+    background:#202033;
+    color:#ddd;
+    padding:13px 18px;
+    border-radius:12px;
+    border:1px solid #33334a;
+}
+
+.status{
+    margin-top:15px;
+    color:#b9b9c7;
+    font-size:14px;
+}
+
+.platform-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+}
+
+.platform{
+    background:#11111c;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:17px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.platform-left{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.platform-icon{
+    width:43px;
+    height:43px;
+    border-radius:13px;
+    background:#232336;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:900;
+}
+
+.platform small{
+    color:var(--muted);
+    display:block;
+    margin-top:3px;
+}
+
+.connect{
+    padding:8px 11px;
+    border-radius:10px;
+    color:white;
+    background:#292940;
+}
+
+.connected{
+    color:#6ce4a5;
+    background:rgba(33,199,122,.13);
+    border:1px solid rgba(33,199,122,.25);
+}
+
+.demo{
+    font-size:10px;
+    color:#d0bfff;
+}
+
+.ai-output{
+    display:none;
+}
+
+.tabs{
+    display:flex;
+    gap:8px;
+    overflow:auto;
+    padding-bottom:10px;
+    margin-bottom:15px;
+}
+
+.tab{
+    white-space:nowrap;
+    background:#202033;
+    color:#bbb;
+    padding:9px 13px;
+    border-radius:10px;
+}
+
+.tab.active{
+    background:linear-gradient(90deg,var(--purple),var(--blue));
+    color:white;
+}
+
+.output-box{
+    background:#0a0a13;
+    border:1px solid var(--border);
+    border-radius:17px;
+    padding:18px;
+}
+
+.output-row{
+    padding:12px 0;
+    border-bottom:1px solid #212131;
+}
+
+.output-row:last-child{
+    border-bottom:0;
+}
+
+.output-row strong{
+    color:#b9a6ff;
+    display:block;
+    margin-bottom:6px;
+}
+
+.output-row div{
+    color:#ddd;
+    line-height:1.55;
+    word-break:break-word;
+}
+
+.publishbar{
+    margin-top:17px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.tools{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+.tool{
+    position:relative;
+    overflow:hidden;
+    min-height:190px;
+    background:linear-gradient(145deg,#151524,#0e0e18);
+    border:1px solid var(--border);
+    border-radius:20px;
+    padding:21px;
+    transition:.2s;
+}
+
+.tool:hover{
+    transform:translateY(-3px);
+    border-color:#4a426c;
+}
+
+.tool-icon{
+    font-size:29px;
+    margin-bottom:18px;
+}
+
+.tool h3{margin-bottom:8px}
+
+.tool p{
+    color:var(--muted);
+    line-height:1.5;
+    font-size:14px;
+    min-height:62px;
+}
+
+.tool button{
+    margin-top:14px;
+    color:#dcd3ff;
+    background:#28253d;
+    padding:9px 12px;
+    border-radius:10px;
+}
+
+.real-chip{
+    position:absolute;
+    right:13px;
+    top:13px;
+    color:#67e6a0;
+    background:rgba(33,199,122,.1);
+    border:1px solid rgba(33,199,122,.22);
+    padding:5px 8px;
+    border-radius:999px;
+    font-size:10px;
+}
+
+.next-chip{
+    position:absolute;
+    right:13px;
+    top:13px;
+    color:#d1c3ff;
+    background:rgba(139,92,246,.1);
+    border:1px solid rgba(139,92,246,.2);
+    padding:5px 8px;
+    border-radius:999px;
+    font-size:10px;
+}
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.76);
+    z-index:100;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.modal-card{
+    background:#151522;
+    border:1px solid #35354a;
+    width:min(500px,100%);
+    padding:25px;
+    border-radius:22px;
+}
+
+.modal-card h2{margin-bottom:10px}
+
+.modal-card p{
+    color:#aaaabd;
+    line-height:1.6;
+}
+
+.modal-card button{
+    margin-top:20px;
+}
+
+.loading{
+    display:inline-block;
+    width:15px;
+    height:15px;
+    border:2px solid rgba(255,255,255,.25);
+    border-top-color:white;
+    border-radius:50%;
+    animation:spin .7s linear infinite;
+    vertical-align:middle;
+    margin-right:7px;
+}
+
+@keyframes spin{
+    to{transform:rotate(360deg)}
+}
+
+footer{
+    text-align:center;
+    color:#6f6f80;
+    padding:60px 20px 35px;
+}
+
+@media(max-width:850px){
+    .create-grid,.platform-grid,.tools{
+        grid-template-columns:1fr;
+    }
+
+    .hero{
+        margin-top:45px;
+    }
+
+    .hero h1{
+        letter-spacing:-2px;
+    }
+}
 </style>
 </head>
+
 <body>
-<h1>Upload once. Post everywhere. <span style="color:#FF2E63">Done.</span></h1>
-<p>Real AI Agent for creators - Script likho, AI Caption, Best Time, Strategy, Voice aur Thumbnail banayega.</p>
 
-<div class="card">
-<h2>Script Likho</h2>
-<textarea id="script">morning routine</textarea><br>
-<button onclick="callModal()" style="background:#FF2E63; color:white;">Generate - Real AI</button>
+<nav>
+    <div class="logo">Reel<span>Done</span></div>
+    <div class="nav-pill">AI Creator Studio</div>
+</nav>
+
+<section class="hero">
+    <div class="badge">✦ AI-powered creator workflow</div>
+
+    <h1>
+        Create once.<br>
+        <span class="gradient">Publish everywhere.</span>
+    </h1>
+
+    <p>
+        Turn one idea into platform-ready content. Generate captions,
+        titles, descriptions, hashtags, keywords and publishing assets
+        with AI, then publish from one workflow.
+    </p>
+</section>
+
+<main class="container">
+
+    <div class="section-title">
+        <h2>01 · Create</h2>
+        <p>Start with your video and give ReelDone the context.</p>
+    </div>
+
+    <section class="card">
+
+        <div class="create-grid">
+
+            <div>
+                <label>Your idea or script</label>
+                <textarea id="script"
+                    placeholder="Example: 5 easy tips to create better Instagram Reels"></textarea>
+            </div>
+
+            <div>
+                <label>Your video</label>
+
+                <label class="upload" for="videoFile">
+                    <div class="upload-icon">↥</div>
+                    <strong>Choose your video</strong>
+                    <small>Upload once, prepare for every platform.</small>
+                    <div class="file-name" id="fileName">No video selected</div>
+                </label>
+
+                <input type="file" id="videoFile" accept="video/*">
+            </div>
+
+        </div>
+
+        <div class="actions">
+            <button class="primary" id="generateBtn" onclick="generateAI()">
+                ✦ Generate with AI
+            </button>
+
+            <button class="secondary" onclick="clearCreator()">
+                Clear
+            </button>
+        </div>
+
+        <div class="status" id="generateStatus">
+            Ready when you are.
+        </div>
+
+    </section>
+
+
+    <div class="section-title">
+        <h2>02 · Connect Platforms</h2>
+        <p>Facebook is your live connector. Additional integrations are shown in demo mode.</p>
+    </div>
+
+    <section class="platform-grid">
+
+        <div class="platform">
+            <div class="platform-left">
+                <div class="platform-icon">f</div>
+                <div>
+                    <strong>Facebook</strong>
+                    <small id="facebookState">Check connection</small>
+                </div>
+            </div>
+
+            <button class="connect" id="facebookBtn" onclick="connectFacebook()">
+                Connect
+            </button>
+        </div>
+
+        <div class="platform">
+            <div class="platform-left">
+                <div class="platform-icon">◎</div>
+                <div>
+                    <strong>Instagram</strong>
+                    <small>Integration preview</small>
+                </div>
+            </div>
+
+            <button class="connect"
+                onclick="demoConnect(this)">Connect</button>
+        </div>
+
+        <div class="platform">
+            <div class="platform-left">
+                <div class="platform-icon">▶️</div>
+                <div>
+                    <strong>YouTube</strong>
+                    <small>Integration preview</small>
+                </div>
+            </div>
+
+            <button class="connect"
+                onclick="demoConnect(this)">Connect</button>
+        </div>
+
+        <div class="platform">
+            <div class="platform-left">
+                <div class="platform-icon">in</div>
+                <div>
+                    <strong>LinkedIn</strong>
+                    <small>Integration preview</small>
+                </div>
+            </div>
+         </div>
+
+            <button class="connect" onclick="demoConnect(this)">
+                Connect
+            </button>
+        </div>
+          <div class="platform">
+            <div class="platform-left">
+                <div class="platform-icon">P</div>
+                <div>
+                    <strong>Pinterest</strong>
+                    <small>Integration preview</small>
+                </div>
+            </div>
+
+            <button class="connect" onclick="demoConnect(this)">
+                Connect
+            </button>
+        </div>
+               <div class="platform">
+            <div class="platform-left">
+                <div class="platform-icon">X</div>
+                <div>
+                    <strong>X</strong>
+                    <small>Integration preview</small>
+                </div>
+            </div>
+
+            <button class="connect" onclick="demoConnect(this)">
+                Connect
+            </button>
+        </div>
+
+    </section>
+               <section class="ai-output" id="aiOutput">
+
+        <div class="section-title">
+            <h2>03 · AI Optimization</h2>
+            <p>Review AI-generated content for each platform.</p>
+        </div>
+
+        <div class="card">
+
+            <div class="tabs" id="tabs"></div>
+
+            <div class="output-box" id="outputContent">
+                Generate content to see AI results.
+            </div>
+
+            <div class="publishbar">
+
+                <button class="primary" onclick="publishFacebook()">
+                    AI Auto Post
+                </button>
+
+                <button class="secondary" onclick="schedulePreview()">
+                    AI Auto Schedule
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+           <div class="section-title">
+        <h2>Creator AI Studio</h2>
+        <p>Create, edit and repurpose your content.</p>
+    </div>
+
+    <section class="tools">
+
+        <div class="tool">
+            <div class="next-chip">Real tool next</div>
+            <div class="tool-icon">✂️</div>
+            <h3>Faceful Video Editor</h3>
+            <p>Upload footage and create vertical or horizontal edited content.</p>
+            <button onclick="toolPreview('Faceful Video Editor')">
+                Open Editor
+            </button>
+        </div>
+
+        <div class="tool">
+            <div class="next-chip">Real tool next</div>
+            <div class="tool-icon">🎬</div>
+            <h3>Faceless Video Creator</h3>
+            <p>Turn scripts into scenes, visuals, narration and finished videos.</p>
+            <button onclick="toolPreview('Faceless Video Creator')">
+                Create Video
+            </button>
+        </div>
+
+        <div class="tool">
+            <div class="next-chip">Real tool next</div>
+            <div class="tool-icon">🎙️</div>
+            <h3>AI Voice</h3>
+            <p>Create narration and voiceovers for your content.</p>
+            <button onclick="toolPreview('AI Voice')">
+                Generate Voice
+            </button>
+        </div><div class="tool">
+            <div class="next-chip">Real tool next</div>
+            <div class="tool-icon">✨</div>
+            <h3>AI Video</h3>
+            <p>Turn an idea into structured scenes and short-form video.</p>
+            <button onclick="toolPreview('AI Video')">
+                Generate Video
+            </button>
+        </div>
+
+        <div class="tool">
+            <div class="next-chip">Real tool next</div>
+            <div class="tool-icon">▣</div>
+            <h3>AI Image & Thumbnail</h3>
+            <p>Create thumbnails and social visuals for your content.</p>
+            <button onclick="toolPreview('AI Image & Thumbnail')">
+                Generate Image
+            </button>
+        </div>
+
+        <div class="tool">
+            <div class="next-chip">Real tool next</div>
+            <div class="tool-icon">↗</div>
+            <h3>Trending Topics</h3>
+            <p>Find trends and turn them into hooks, ideas and scripts.</p>
+            <button onclick="toolPreview('Trending Topics')">
+                Search Trends
+            </button>
+        </div>
+
+    </section>
+
+</main><div class="modal" id="modal">
+    <div class="modal-card">
+        <h2 id="modalTitle">ReelDone</h2>
+        <p id="modalText"></p>
+        <button class="primary" onclick="closeModal()">Close</button>
+    </div>
 </div>
 
-<div id="dashboard" style="display:none;" class="card">
-<h2>AI Output Dashboard</h2>
-<button onclick="showTab('youtube')">YouTube</button>
-<button onclick="showTab('instagram')">Instagram</button>
-<button onclick="showTab('facebook')">Facebook</button>
-<button onclick="showTab('threads')">Threads</button>
-<button onclick="showTab('linkedin')">LinkedIn</button>
-<div id="tabContent" style="border:1px solid #eee; padding:12px; border-radius:12px; margin-top:10px; text-align:left;">Generate दबाइए</div>
-<div id="bestTime" style="margin-top:10px; text-align:left;">Best Time: AI बता रहा है...</div>
-<div id="strategy" style="margin-top:10px; text-align:left;">Strategy: AI बता रहा है...</div>
-<div id="voiceBox" style="margin-top:10px; text-align:left;">Voice: Generate के बाद आएगा</div>
-<div id="samBox" style="margin-top:10px; text-align:left;">Thumbnail: Generate के बाद आएगा</div>
-</div>
+<footer>
+    ReelDone · Create once. Publish everywhere.
+</footer>
 
 <script>
-async function callModal(){
-  let script = document.getElementById('script').value;
-  document.getElementById('dashboard').style.display = 'block';
-  let res = await fetch('https://aasthaoct7--reeldone-ai-caption-api.us-east.modal.run', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({script: script})});
-  let data = await res.json();
-  window.lastAI = data;
-  document.getElementById('tabContent').innerText = data.instagram || "AI Caption आ गया है";
-  document.getElementById('bestTime').innerText = "Best Time: Instagram 7:00 PM, YouTube 6:30 PM - AI ने Niche देखकर बताया है";
-  document.getElementById('strategy').innerText = "Strategy: " + script + " के लिए सुबह Reel, शाम को Long Video, हफ्ते में 3 बार";
-  document.getElementById('voiceBox').innerText = "Voice: Voiceover तैयार है - " + script;
-  document.getElementById('samBox').innerText = "Thumbnail: SAM 3.1 से थंबनेल तैयार है";
+
+const API = "http://127.0.0.1:8000";
+
+let aiData = {};
+let activePlatform = "";
+
+document.getElementById("videoFile").addEventListener("change", function(){
+    const file = this.files[0];
+
+    document.getElementById("fileName").innerText =
+        file ? file.name : "No video selected";
+});
+async function generateAI(){
+
+    const script = document.getElementById("script").value.trim();
+
+    if(!script){
+        showModal("Add your idea first",
+        "Please write a topic, idea or script.");
+        return;
+    }
+
+    const btn = document.getElementById("generateBtn");
+
+    btn.disabled = true;
+    btn.innerText = "Generating...";
+
+    document.getElementById("generateStatus").innerText =
+        "AI is creating platform-specific content...";
+
+    try{
+
+        const response = await fetch(API + "/generate",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({script:script})
+        });
+
+        const data = await response.json();
+
+        if(!response.ok){
+            throw new Error(data.detail || "Generation failed");
+        }
+
+        aiData = data;
+
+        document.getElementById("generateStatus").innerText =
+            "✓ AI content generated successfully";
+
+        document.getElementById("aiOutput").style.display = "block";
+
+        buildTabs();
+
+    }catch(error){
+
+        document.getElementById("generateStatus").innerText =
+            "AI generation failed";
+
+        showModal(
+            "Generation failed",
+            error.message
+        );
+
+    }finally{
+
+        btn.disabled = false;
+        btn.innerText = "✦ Generate with AI";
+    }
 }
-function showTab(platform){
-  let data = window.lastAI || {};
-  document.getElementById('tabContent').innerText = platform + ": " + (data.instagram || "AI Caption");
+function buildTabs(){
+
+    const tabs = document.getElementById("tabs");
+    tabs.innerHTML = "";
+
+    const platforms = [
+        "YouTube",
+        "Instagram",
+        "Facebook",
+        "LinkedIn",
+        "Twitter",
+        "Pinterest"
+    ].filter(name => aiData[name]);
+
+    platforms.forEach((platform,index)=>{
+
+        const btn = document.createElement("button");
+
+        btn.className = "tab" + (index === 0 ? " active" : "");
+        btn.innerText = platform;
+
+        btn.onclick = function(){
+            showPlatform(platform,btn);
+        };
+
+        tabs.appendChild(btn);
+    });
+
+    if(platforms.length){
+        activePlatform = platforms[0];
+        renderPlatform(activePlatform);
+    }
 }
+function showPlatform(platform,button){
+
+    document.querySelectorAll(".tab").forEach(function(tab){
+        tab.classList.remove("active");
+    });
+
+    button.classList.add("active");
+    activePlatform = platform;
+
+    renderPlatform(platform);
+}
+
+function renderPlatform(platform){
+
+    const data = aiData[platform] || {};
+    const box = document.getElementById("outputContent");
+
+    if(platform === "YouTube"){
+        box.innerHTML =
+            outputField("Title", data.title) +
+            outputField("Description", data.description) +
+            outputField("Hashtags", formatValue(data.hashtags)) +
+            outputField("Keywords", formatValue(data.keywords)) +
+            outputField("Tags", formatValue(data.tags));
+    }
+
+    else if(platform === "Instagram"){
+        box.innerHTML =
+            outputField("Reel Caption", data.caption) +
+            outputField("Hashtags", formatValue(data.hashtags));
+    }
+
+    else if(platform === "Facebook"){
+        box.innerHTML =
+            outputField("Post Caption", data.caption) +
+            outputField("Hashtags", formatValue(data.hashtags));
+    }
+
+    else if(platform === "LinkedIn"){
+        box.innerHTML =
+            outputField("Post Copy", data.caption) +
+            outputField("Hashtags", formatValue(data.hashtags));
+    }
+
+    else if(platform === "Twitter"){
+        box.innerHTML =
+            outputField("Post", data.caption) +
+            outputField("Hashtags", formatValue(data.hashtags));
+    }
+
+    else if(platform === "Pinterest"){
+        box.innerHTML =
+            outputField("Pin Title", data.title) +
+            outputField("Pin Description", data.description) +
+            outputField("Keywords", formatValue(data.keywords));
+    }
+}
+
+function outputField(label,value){
+
+    if(!value){
+        return "";
+    }
+
+    return `
+        <div class="output-row">
+            <strong>${label}</strong>
+            <div>${value}</div>
+        </div>
+    `;
+}
+
+
+function formatValue(value){
+
+    if(Array.isArray(value)){
+        return value.join(" · ");
+    }
+
+    return value || "";
+}
+function connectFacebook(){
+    window.location.href = API + "/auth/facebook/login";
+}
+
+
+function demoConnect(button){
+
+    if(button.classList.contains("connected")){
+        return;
+    }
+
+    button.disabled = true;
+    button.innerText = "Connecting...";
+
+    setTimeout(function(){
+
+        button.disabled = false;
+        button.innerText = "Connected · Demo";
+        button.classList.add("connected");
+
+    },700);
+}
+
+
+async function checkFacebook(){
+
+    const params = new URLSearchParams(window.location.search);
+
+    if(params.get("fb") !== "connected"){
+        return;
+    }
+
+    try{
+
+        const response = await fetch(API + "/auth/facebook/pages");
+        const data = await response.json();
+
+        if(data.connected){
+
+            const btn = document.getElementById("facebookBtn");
+
+            btn.innerText = "Connected";
+            btn.classList.add("connected");
+
+            document.getElementById("facebookState").innerText =
+                data.pages && data.pages.length
+                ? data.pages[0].name
+                : "Facebook connected";
+
+            if(!data.selected && data.pages && data.pages.length){
+
+                await fetch(API + "/auth/facebook/select-page",{
+                    method:"POST",
+                    headers:{
+                        "Content-Type":"application/json"
+                    },
+                    body:JSON.stringify({
+                        page_id:data.pages[0].id
+                    })
+                });
+            }
+        }
+
+    }catch(error){
+
+        document.getElementById("facebookState").innerText =
+            "Connection needs refresh";
+    }
+}
+async function publishFacebook(){
+
+    const videoInput = document.getElementById("videoFile");
+
+    if(!videoInput.files.length){
+        showModal(
+            "Video required",
+            "Please choose a video before publishing."
+        );
+        return;
+    }
+
+    const facebook = aiData.Facebook || {};
+
+    const baseCaption =
+    facebook.caption ||
+    document.getElementById("script").value;
+
+const hashtags = Array.isArray(facebook.hashtags)
+    ? facebook.hashtags.join(" ")
+    : (facebook.hashtags || "");
+
+const caption = hashtags
+    ? baseCaption + "\n\n" + hashtags
+    : baseCaption;
+
+const form = new FormData();
+
+form.append("caption", caption);
+form.append("video", videoInput.files[0]);
+
+    try{
+
+        const response = await fetch(API + "/publish",{
+            method:"POST",
+            body:form
+        });
+
+        const data = await response.json();
+
+        if(!response.ok){
+            throw new Error(data.detail || "Publishing failed");
+        }
+
+        showModal(
+            "Published ✓",
+            "Your video was successfully published to Facebook."
+        );
+
+    }catch(error){
+
+        showModal(
+            "Publishing failed",
+            error.message
+        );
+    }
+}
+
+
+function schedulePreview(){
+    showModal(
+        "AI Schedule",
+        "Real automatic scheduling is the next backend feature we will connect."
+    );
+}
+
+
+function toolPreview(name){
+    showModal(
+        name,
+        "This creator tool is ready in the interface. Next we will connect its real AI backend."
+    );
+}
+
+
+function clearCreator(){
+
+    document.getElementById("script").value = "";
+    document.getElementById("videoFile").value = "";
+    document.getElementById("fileName").innerText = "No video selected";
+    document.getElementById("aiOutput").style.display = "none";
+    document.getElementById("generateStatus").innerText = "Ready when you are.";
+
+    aiData = {};
+}
+
+
+function showModal(title,text){
+
+    document.getElementById("modalTitle").innerText = title;
+    document.getElementById("modalText").innerText = text;
+    document.getElementById("modal").style.display = "flex";
+}
+
+
+function closeModal(){
+    document.getElementById("modal").style.display = "none";
+}
+
+
+checkFacebook();
+
 </script>
+
 </body>
 </html>
+                    
