@@ -1,3 +1,4 @@
+import requests
 # PURPOSE:
 # Real Facebook login (OAuth) and publishing a video to a Facebook Page.
 #
@@ -18,17 +19,17 @@ from fastapi import APIRouter, File, Form, HTTPException, UploadFile
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
 
-load_dotenv()
-
+load_dotenv(override=True)
 APP_ID = os.getenv("FACEBOOK_APP_ID")
 APP_SECRET = os.getenv("FACEBOOK_APP_SECRET")
 REDIRECT_URI = os.getenv(
-    "FACEBOOK_REDIRECT_URI", "http://localhost:8000/auth/facebook/callback"
+    "FACEBOOK_REDIRECT_URI",
+    "http://localhost:8001/auth/facebook/callback"
 )
 FRONTEND_URL = os.getenv("FRONTEND_URL", "https://reeldone.vercel.app")
 VERSION = os.getenv("GRAPH_VERSION", "v24.0")
 GRAPH = f"https://graph.facebook.com/{VERSION}"
-SCOPES = "pages_show_list,pages_manage_posts,pages_read_engagement,public_profile"
+SCOPES = "pages_show_list,pages_manage_posts,pages_read_engagement,public_profile,business_management"
 
 router = APIRouter()
 
@@ -97,7 +98,7 @@ async def facebook_callback(code: str = "", state: str = "", error: str = ""):
 
     _session["pages"] = pages.get("data", [])
     _session["selected"] = None
-    return RedirectResponse(f"{FRONTEND_URL}?fb=connected")
+    return RedirectResponse("http://127.0.0.1:5500/?fb=connected")
 
 
 @router.get("/auth/facebook/pages")
@@ -135,3 +136,14 @@ async def publish(caption: str = Form(...), video: UploadFile = File(...)):
     if response.status_code >= 400:
         raise HTTPException(502, f"Facebook error: {response.text}")
     return {"status": "published", "page": page["name"], "facebook": response.json()}
+@router.get("/auth/facebook/status")
+async def facebook_status():
+    page = _session.get("selected")
+    pages = _session.get("pages", [])
+
+    return {
+        "connected": bool(pages),
+        "page_selected": bool(page),
+        "page_name": page.get("name") if page else None,
+        "page_id": page.get("id") if page else None,
+    }
