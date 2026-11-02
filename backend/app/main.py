@@ -47,7 +47,13 @@ async def health_check():
     }
 # PURPOSE:
 # Plug the /generate route (6-platform SEO) into the main application.
-from app.seo_routes import router as seo_router
+from backend.app.seo_routes import router as seo_router
 
 app.include_router(seo_router)
+
+from backend.app.facebook_routes import router as facebook_router
+app.include_router(facebook_router)
+from backend.app.instagram_routes import router as instagram_router
+app.include_router(instagram_router)
+
 
