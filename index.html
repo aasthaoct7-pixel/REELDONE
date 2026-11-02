@@ -583,12 +583,13 @@ footer{
                 <div class="platform-icon">◎</div>
                 <div>
                     <strong>Instagram</strong>
-                    <small>Integration preview</small>
+                   <small>Integration preview</small>
                 </div>
             </div>
 
-            <button class="connect"
-                onclick="demoConnect(this)">Connect</button>
+          <button class="connect" onclick="demoConnect(this)">
+    Connect
+</button>
         </div>
 
         <div class="platform">
@@ -604,20 +605,20 @@ footer{
                 onclick="demoConnect(this)">Connect</button>
         </div>
 
-        <div class="platform">
-            <div class="platform-left">
-                <div class="platform-icon">in</div>
-                <div>
-                    <strong>LinkedIn</strong>
-                    <small>Integration preview</small>
-                </div>
-            </div>
-         </div>
+       <div class="platform">
+    <div class="platform-left">
+        <div class="platform-icon">in</div>
 
-            <button class="connect" onclick="demoConnect(this)">
-                Connect
-            </button>
+        <div>
+            <strong>LinkedIn</strong>
+            <small>Integration preview</small>
         </div>
+    </div>
+
+    <button class="connect" onclick="demoConnect(this)">
+        Connect
+    </button>
+</div>
           <div class="platform">
             <div class="platform-left">
                 <div class="platform-icon">P</div>
@@ -676,73 +677,7 @@ footer{
         </div>
 
     </section>
-           <div class="section-title">
-        <h2>Creator AI Studio</h2>
-        <p>Create, edit and repurpose your content.</p>
-    </div>
-
-    <section class="tools">
-
-        <div class="tool">
-            <div class="next-chip">Real tool next</div>
-            <div class="tool-icon">✂️</div>
-            <h3>Faceful Video Editor</h3>
-            <p>Upload footage and create vertical or horizontal edited content.</p>
-            <button onclick="toolPreview('Faceful Video Editor')">
-                Open Editor
-            </button>
-        </div>
-
-        <div class="tool">
-            <div class="next-chip">Real tool next</div>
-            <div class="tool-icon">🎬</div>
-            <h3>Faceless Video Creator</h3>
-            <p>Turn scripts into scenes, visuals, narration and finished videos.</p>
-            <button onclick="toolPreview('Faceless Video Creator')">
-                Create Video
-            </button>
-        </div>
-
-        <div class="tool">
-            <div class="next-chip">Real tool next</div>
-            <div class="tool-icon">🎙️</div>
-            <h3>AI Voice</h3>
-            <p>Create narration and voiceovers for your content.</p>
-            <button onclick="toolPreview('AI Voice')">
-                Generate Voice
-            </button>
-        </div><div class="tool">
-            <div class="next-chip">Real tool next</div>
-            <div class="tool-icon">✨</div>
-            <h3>AI Video</h3>
-            <p>Turn an idea into structured scenes and short-form video.</p>
-            <button onclick="toolPreview('AI Video')">
-                Generate Video
-            </button>
-        </div>
-
-        <div class="tool">
-            <div class="next-chip">Real tool next</div>
-            <div class="tool-icon">▣</div>
-            <h3>AI Image & Thumbnail</h3>
-            <p>Create thumbnails and social visuals for your content.</p>
-            <button onclick="toolPreview('AI Image & Thumbnail')">
-                Generate Image
-            </button>
-        </div>
-
-        <div class="tool">
-            <div class="next-chip">Real tool next</div>
-            <div class="tool-icon">↗</div>
-            <h3>Trending Topics</h3>
-            <p>Find trends and turn them into hooks, ideas and scripts.</p>
-            <button onclick="toolPreview('Trending Topics')">
-                Search Trends
-            </button>
-        </div>
-
-    </section>
-
+          
 </main><div class="modal" id="modal">
     <div class="modal-card">
         <h2 id="modalTitle">ReelDone</h2>
@@ -757,7 +692,7 @@ footer{
 
 <script>
 
-const API = "http://127.0.0.1:8000";
+const API = "http://127.0.0.1:8001";
 
 let aiData = {};
 let activePlatform = "";
@@ -1077,12 +1012,6 @@ function schedulePreview(){
 }
 
 
-function toolPreview(name){
-    showModal(
-        name,
-        "This creator tool is ready in the interface. Next we will connect its real AI backend."
-    );
-}
 
 
 function clearCreator(){
@@ -1111,7 +1040,25 @@ function closeModal(){
 
 
 checkFacebook();
+const instagramParams = new URLSearchParams(window.location.search);
 
+if(instagramParams.get("ig") === "connected"){
+
+    const instagramButton =
+        document.getElementById("instagramConnectButton");
+
+    if(instagramButton){
+        instagramButton.innerText = "Connected";
+        instagramButton.classList.add("connected");
+        instagramButton.disabled = true;
+    }
+
+    window.history.replaceState(
+        {},
+        document.title,
+        window.location.pathname
+    );
+}
 </script>
 
 </body>
