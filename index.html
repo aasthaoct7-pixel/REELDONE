@@ -435,8 +435,9 @@ button{
     width:min(500px,100%);
     padding:25px;
     border-radius:22px;
+    max-height:85vh;
+    overflow-y:auto;
 }
-
 .modal-card h2{margin-bottom:10px}
 
 .modal-card p{
@@ -1004,13 +1005,129 @@ form.append("video", videoInput.files[0]);
 }
 
 
-function schedulePreview(){
+async function schedulePreview(){
+
+    const script = document.getElementById("script").value.trim();
+
+    if(!script){
+        showModal(
+            "AI Auto Schedule",
+            "Please enter your reel topic or script first."
+        );
+        return;
+    }
+
     showModal(
-        "AI Schedule",
-        "Real automatic scheduling is the next backend feature we will connect."
+        "AI Auto Schedule",
+        "AI is finding the best posting times for your content..."
     );
+
+    try{
+
+        const response = await fetch(
+            API + "/schedule/suggestions",
+            {
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify({
+                    script:script
+                })
+            }
+        );
+
+        const data = await response.json();
+
+        if(!response.ok){
+            throw new Error(
+                data.detail || "Could not generate schedule."
+            );
+        }
+
+        const box = document.getElementById("modalText");
+
+        box.innerHTML = "";
+
+        Object.entries(data).forEach(([platform,times]) => {
+
+            const section = document.createElement("div");
+
+            section.style.marginBottom = "18px";
+
+            section.innerHTML = `
+                <strong style="display:block;margin-bottom:8px;">
+                    ${platform}
+                </strong>
+
+                ${times.map((time,index) => `
+                    <label style="
+                        display:block;
+                        margin:7px 0;
+                        cursor:pointer;
+                    ">
+                        <input
+                            type="radio"
+                            name="schedule_${platform}"
+                            value="${time}"
+                            ${index === 0 ? "checked" : ""}
+                        >
+                        ${time}
+                    </label>
+                `).join("")}
+            `;
+
+            box.appendChild(section);
+        });
+
+        const button = document.createElement("button");
+
+        button.className = "primary";
+        button.innerText = "Schedule Everywhere";
+
+        button.onclick = confirmAISchedule;
+
+        box.appendChild(button);
+
+    }catch(error){
+
+        showModal(
+            "Schedule failed",
+            error.message
+        );
+    }
 }
 
+
+function confirmAISchedule(){
+
+    const selections = {};
+
+    [
+        "Facebook",
+        "Instagram",
+        "YouTube",
+        "LinkedIn",
+        "Twitter",
+        "Pinterest"
+    ].forEach(platform => {
+
+        const selected = document.querySelector(
+    'input[name="schedule_' + platform + '"]:checked'
+);
+
+        if(selected){
+            selections[platform] = selected.value;
+        }
+    });
+
+    console.log("Selected AI Schedule:", selections);
+
+    showModal(
+        "Schedule ready ✓",
+        "Your posting times have been selected. Facebook real scheduling will now be connected; other platforms remain Demo."
+    );
+}
 
 
 
