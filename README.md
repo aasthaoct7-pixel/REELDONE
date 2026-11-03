@@ -100,12 +100,6 @@ ReelDone uses a real Facebook integration for publishing. Other platforms are cu
 > Demo integrations are clearly marked and are not presented as real API connections.
 >flowchart TD
 
-## Technical Architecture
-
-The diagram below shows how ReelDone processes creator input through the AI inference pipeline and separates real Facebook publishing from demo platform integrations.
-
-![ReelDone Technical Architecture](flowchart.png)
-   
     Tech Stack
 Frontend
 •HTML5
