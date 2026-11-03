@@ -130,6 +130,23 @@ Development & Testing
 •GitHub
 •FastAPI Swagger UI
 
+## Meta Model Used
+
+ReelDone uses *Meta Muse Spark 1.3 (muse-spark-1.3)* as its core AI model.
+
+In ReelDone, Muse Spark powers:
+
+- Platform-specific social media content generation
+- YouTube titles, descriptions, keywords, and tags
+- Instagram and Facebook captions and hashtags
+- LinkedIn, X, and Pinterest content adaptation
+- AI-generated posting-time recommendations for the Auto Schedule workflow
+- Structured content generation from a single creator input
+
+ReelDone accesses the model through its *Modal-hosted inference endpoint*, while the FastAPI backend handles prompt orchestration, structured responses, and integration with the publishing workflow.
+
+The goal is not to generate one generic caption for every network. ReelDone uses the Meta model to adapt one creator idea into content designed for the different formats and communication styles of each platform.
+
 Real vs Demo Integrations
 Setup Instructions
 1. Clone the Repository
