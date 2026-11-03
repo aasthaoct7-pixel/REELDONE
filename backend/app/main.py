@@ -53,6 +53,3 @@ app.include_router(seo_router)
 
 from backend.app.facebook_routes import router as facebook_router
 app.include_router(facebook_router)
-
-
-
