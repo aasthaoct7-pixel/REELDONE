@@ -99,7 +99,8 @@ ReelDone uses a real Facebook integration for publishing. Other platforms are cu
 
 > Demo integrations are clearly marked and are not presented as real API connections.
 >flowchart TD
-
+*Facebook integration:* ReelDone includes a real Facebook Graph API integration for Page authentication and video publishing. Because the Meta app is currently in development/testing access, Facebook authentication is demonstrated using the authorized app administrator account in the demo video.
+> 
     Tech Stack
 Frontend
 •HTML5
