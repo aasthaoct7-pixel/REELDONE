@@ -70,7 +70,7 @@ SOCIAL_MEDIA_SCHEMA = {
 }
 
 
-def ask_muse(system_prompt: str, user_prompt: str) -> str:
+def ask_muse(system_prompt: str, user_prompt: str, use_schema: bool = True) -> str:
     if not MUSE_ENDPOINT_URL or not TOKEN_ID or not TOKEN_SECRET:
         raise RuntimeError(
             "Missing MUSE_ENDPOINT_URL or Modal token in .env"
@@ -97,8 +97,10 @@ def ask_muse(system_prompt: str, user_prompt: str) -> str:
         "temperature": 0.2,
         "max_tokens": 8192,
         "reasoning_effort": "low",
-        "response_format": SOCIAL_MEDIA_SCHEMA,
+       
     }
+    if use_schema:
+        payload["response_format"] = SOCIAL_MEDIA_SCHEMA
 
     response = requests.post(
         MUSE_ENDPOINT_URL,
