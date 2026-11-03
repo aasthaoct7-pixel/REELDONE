@@ -102,39 +102,12 @@ ReelDone uses a real Facebook integration for publishing. Other platforms are cu
 > Demo integrations are clearly marked and are not presented as real API connections.
 >flowchart TD
 
-    A[Creator] --> B[ReelDone Web App]
+## Technical Architecture
 
-    B --> C[Upload Video]
-    B --> D[Enter Topic / Script]
+The diagram below shows how ReelDone processes creator input through the AI inference pipeline and separates real Facebook publishing from demo platform integrations.
 
-    D --> E[FastAPI Backend]
-
-    E --> F[Modal Endpoint]
-    F --> G[Meta AI / Muse]
-
-    G --> H[Platform-Specific AI Optimization]
-
-    H --> I[Facebook Caption + Hashtags]
-    H --> J[Instagram Caption + Hashtags]
-    H --> K[YouTube Title + Description + Tags]
-    H --> L[LinkedIn Post Copy]
-    H --> M[X Post]
-    H --> N[Pinterest Metadata]
-
-    E --> O[AI Auto Schedule]
-    O --> P[3 Recommended Times Per Platform]
-
-    I --> Q[AI Auto Post]
-
-    Q --> R[Facebook Graph API]
-    R --> S[Real Facebook Page Publish]
-
-    Q --> T[Instagram - Demo]
-    Q --> U[YouTube - Demo]
-    Q --> V[LinkedIn - Demo]
-    Q --> W[Pinterest - Demo]
-    Q --> X[X - Demo]
-
+![ReelDone Technical Architecture](flowchart.png)
+   
     Tech Stack
 Frontend
 •HTML5
