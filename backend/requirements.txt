@@ -9,3 +9,5 @@ python-dotenv
 
 # HTTPX sends requests to the Muse Spark endpoint on Modal.
 httpx
+# Used for HTTP calls in backend helper routes.
+requests
