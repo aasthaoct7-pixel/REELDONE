@@ -98,8 +98,7 @@ async def facebook_callback(code: str = "", state: str = "", error: str = ""):
 
     _session["pages"] = pages.get("data", [])
     _session["selected"] = None
-    return RedirectResponse("http://127.0.0.1:5500/?fb=connected")
-
+    return RedirectResponse(f"{FRONTEND_URL}?fb=connected")
 
 @router.get("/auth/facebook/pages")
 async def list_pages():
