@@ -24,9 +24,9 @@ APP_ID = os.getenv("FACEBOOK_APP_ID")
 APP_SECRET = os.getenv("FACEBOOK_APP_SECRET")
 REDIRECT_URI = os.getenv(
     "FACEBOOK_REDIRECT_URI",
-    "http://localhost:8001/auth/facebook/callback"
+    "https://reeldone-backend.onrender.com/auth/facebook/callback"
 )
-FRONTEND_URL = os.getenv("FRONTEND_URL", "https://reeldone.vercel.app")
+FRONTEND_URL = os.getenv("FRONTEND_URL", "https://reeldone.vercel.app/")
 VERSION = os.getenv("GRAPH_VERSION", "v24.0")
 GRAPH = f"https://graph.facebook.com/{VERSION}"
 SCOPES = "pages_show_list,pages_manage_posts,pages_read_engagement,public_profile,business_management"
@@ -98,7 +98,7 @@ async def facebook_callback(code: str = "", state: str = "", error: str = ""):
 
     _session["pages"] = pages.get("data", [])
     _session["selected"] = None
-    return RedirectResponse(f"{FRONTEND_URL}?fb=connected")
+    return RedirectResponse("https://reeldone.vercel.app/?fb=connected")
 
 @router.get("/auth/facebook/pages")
 async def list_pages():
